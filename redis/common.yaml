@@ -1,0 +1,9 @@
+redis::bind: #bind#
+redis::port: #port#
+redis::maxmemory: #maxmemory#
+redis::maxmemory_policy: #maxmemory_policy#
+redis::tcp_keepalive: #tcp_keepalive#
+redis::log_level: #log_level#
+redis::syslog_enabled: #syslog_enabled#
+redis::timeout: #timeout#
+redis::slave_priority: #slave_priority#

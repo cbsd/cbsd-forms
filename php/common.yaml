@@ -1,0 +1,38 @@
+php::manage_repos: false
+php::fpm: true
+php::dev: true
+php::composer: false
+php::pear: false
+php::phpunit: false
+
+php::fpm::config::log_level: #log_level#
+php::fpm::config::user: #fpm_user#
+php::fpm::config::group: #fpm_group#
+php::fpm::pools:
+  www:
+    listen: #fpm_listen#
+    pm: static
+    pm_max_children: #pm_max_children#
+php::settings:
+  PHP/expose_php: #expose_php#
+  PHP/short_open_tag: #short_open_tag#
+  PHP/realpath_cache_ttl: #realpath_cache_ttl#
+  PHP/max_execution_time: #max_execution_time#
+  PHP/max_input_time: #max_input_time#
+  PHP/memory_limit: #memory_limit#
+  PHP/error_reporting: #error_reporting#
+  PHP/display_errors: #display_errors#
+  PHP/error_log: #error_log#
+  PHP/post_max_size: #post_max_size#
+  PHP/default_charset: #default_charset#
+  PHP/file_uploads: #file_uploads#
+  PHP/upload_tmp_dir: #upload_tmp_dir#
+  PHP/upload_max_filesize: #upload_max_filesize#
+  Date/date.timezone: #date_timezone#
+  Session/session.save_handler: #session_save_handler#
+  Session/session.save_path: #session_save_path#
+  opcache/opcache.enable: #opcache_enable#
+  opcache/opcache.enable_cli: #opcache_enable_cli#
+  opcache/opcache.memory_consumption: #opcache_memory_consumption#
+php::cli::settings:
+  PHP/memory_limit: #cli_memory_limit#

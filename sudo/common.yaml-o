@@ -1,0 +1,3 @@
+sudo::purge: #purge#
+sudo::config_file_replace: #config_file_replace#
+sudo::configs:

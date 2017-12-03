@@ -1,0 +1,98 @@
+generate_manifest()
+{
+
+	cat <<EOF
+Exec { path => "/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin" }
+\$provider = "pkgng"
+EOF
+
+#	for i in ${packages}; do
+#		[ "${i}" = "0" ] && continue
+#		cat << EOF
+#package { "${i}": ensure => "installed" }
+#EOF
+#	done
+
+	cat <<EOF
+
+class { 'sudo':
+EOF
+
+# pass one
+	for i in ${param}; do
+		_T=""
+		eval _T=\${${i}}
+
+		case "$i" in
+			-)
+				continue
+				;;
+			purge|config_file_replace)
+				[ -z "${_T}"  ] && _T="undef"
+				[ "${_T}" = "undef"  ] && continue
+				;;
+			*)
+				continue
+				;;
+		esac
+
+		cat <<EOF
+ $i => "${_T}",
+EOF
+	done
+
+cat <<EOF
+}
+
+EOF
+
+# pass two
+config=
+content=
+
+	for i in ${param}; do
+		_T=""
+		eval _T=\${${i}}
+
+		case "$i" in
+			-)
+				continue
+				;;
+			config*)
+				[ -z "${_T}"  ] && _T="undef"
+				[ "${_T}" = "undef"  ] && continue
+				config="${_T}"
+				;;
+			content*)
+				[ -z "${_T}"  ] && _T="undef"
+				[ "${_T}" = "undef"  ] && continue
+				content="${_T}"
+				;;
+			*)
+				continue
+				;;
+		esac
+
+
+if [ -n  "${content}" -a -n "${config}" ]; then
+
+		cat << EOF
+sudo::conf { "${config}":
+ priority => 10,
+ content  => "${content}",
+}
+
+EOF
+
+config=
+content=
+fi
+
+	done
+
+}
+
+generate_hieradata()
+{
+
+}
